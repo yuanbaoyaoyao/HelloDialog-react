@@ -1,2 +1,2 @@
 # HelloDialog-react
-The project of 'HelloDialog' introduction pages' font end.
+The front end of the introduction page of the HelloDialog project
