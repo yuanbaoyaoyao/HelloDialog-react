@@ -11,6 +11,7 @@ import ApiDocsFirst from '../pages/apiDocs/first'
 import ApiDocsSecond from '../pages/apiDocs/second'
 import ApiDocsThird from '../pages/apiDocs/third'
 import ApiDocsForth from '../pages/apiDocs/forth'
+import AppLayouts from '../layouts/index'
 // class Router extends React.Component {
 //     render() {
 //         return (
@@ -44,7 +45,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/guides',
-        element: <Guides />,
+        element: <AppLayouts />,
         children: [
             {
                 path: '',
@@ -66,7 +67,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/apiDocs',
-        element: <ApiDocs />,
+        element: <AppLayouts />,
         children: [
             {
                 path: '',
