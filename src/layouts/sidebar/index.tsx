@@ -1,6 +1,9 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import routesWithInfo from '../../constants/routesWithInfo'
+import { MenuClickEventHandler } from 'rc-menu/lib/interface';
+import { useLocation, useNavigate } from 'react-router-dom'
+import wrapNavigation from '../../utils/wrapWithNavigate'
 
 const { Sider } = Layout;
 
@@ -11,16 +14,18 @@ let tempCount = 0
 let tempPath = ''
 
 class AppSidebar extends React.Component {
-    state = {
-        siderItems: [],
-        defaultOpenKeys: ''
+    constructor(props: any) {
+        super(props)
+        this.state = {
+            siderItems: [],
+            defaultOpenKeys: '',
+            defaultSelectedKeys: ''
+        }
     }
     getSiderItems = (routes: any) => {
-        let count = 0
         routes.forEach((item: any, index: any) => {
             let temp: any = {}
             if (item.title != undefined) {
-                console.log("item:", item)
                 if (item.children != undefined) {
                     temp = {
                         key: item.path,
@@ -28,12 +33,14 @@ class AppSidebar extends React.Component {
                         children: []
                     }
                     this.state.siderItems.push(temp)
+                    this.state.defaultOpenKeys = this.state.siderItems[0].key
                 } else {
                     temp = {
                         key: tempPath + '/' + item.path,
                         label: item.title,
                     }
                     this.state.siderItems[tempCount].children.push(temp)
+                    this.state.defaultSelectedKeys = this.state.siderItems[0].children[0].path
                 }
             }
             if (item.children != undefined) {
@@ -43,8 +50,10 @@ class AppSidebar extends React.Component {
             }
 
         });
-        console.log("this.state.siderItem:", this.state.siderItems)
-        this.state.defaultOpenKeys = this.state.siderItems[0].key
+    }
+    handleClick = (e: MenuClickEventHandler) => {
+        console.log("e:", e)
+        this.props.to(e.key)
     }
     componentDidMount(): void {
         this.state.siderItems = []
@@ -53,7 +62,6 @@ class AppSidebar extends React.Component {
             siderItems: this.state.siderItems,
             defaultOpenKeys: this.state.defaultOpenKeys
         })
-        console.log("this.state.siderItems:", this.state.siderItems)
     }
     render() {
         return (
@@ -65,11 +73,14 @@ class AppSidebar extends React.Component {
                         defaultOpenKeys={[this.state.defaultOpenKeys]}
                         style={{ height: '100%', borderRight: 0 }}
                         items={this.state.siderItems}
+                        onClick={this.handleClick}
                     />
                 </Sider>
-                <p>{this.state.defaultOpenKeys}</p>
             </div>
         );
     }
 }
-export default AppSidebar
+
+const NavigateAppSidebar = wrapNavigation(AppSidebar)
+
+export default NavigateAppSidebar
