@@ -4,34 +4,15 @@ import { Breadcrumb, Layout, Menu } from 'antd';
 import React from 'react';
 import { Outlet } from 'react-router-dom'
 import "./index.less"
-import Router from '../router'
+import AppSidebar from './sidebar'
+import routesWithInfo from '../constants/routesWithInfo'
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
 const navItems: MenuProps['items'] = ['guides', 'apiDocs', 'donate'].map(key => ({
     key,
     label: `${key}`,
 }));
-
-const siderItems: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-    (icon, index) => {
-        const key = String(index + 1);
-
-        return {
-            key: `sub${key}`,
-            icon: React.createElement(icon),
-            label: `subnav ${key}`,
-
-            children: new Array(4).fill(null).map((_, j) => {
-                const subKey: any = index * 4 + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
-            }),
-        };
-    },
-);
 
 const App: React.FC = () => (
     <Layout>
@@ -40,15 +21,7 @@ const App: React.FC = () => (
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={navItems} />
         </Header>
         <Layout>
-            <Sider width={200} className="site-layout-background">
-                <Menu
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    style={{ height: '100%', borderRight: 0 }}
-                    items={siderItems}
-                />
-            </Sider>
+            <AppSidebar />
             <Layout style={{ padding: '0 24px 24px' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>

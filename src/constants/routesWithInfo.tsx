@@ -12,8 +12,12 @@ import AppLayouts from '../layouts/index'
 import { RouteObject } from 'react-router-dom'
 type routesInfo = RouteObject & {
     title?: String | null
+    icon?: String | null
+    role?: String | null
     children?: RouteObject[] & {
         title?: String | null
+        icon?: String | null
+        role?: String | null
     };
 }
 
