@@ -4,15 +4,16 @@ import { Breadcrumb, Layout, Menu } from 'antd';
 import React from 'react';
 import { Outlet } from 'react-router-dom'
 import "./index.less"
+import Router from '../router'
 
 const { Header, Content, Sider } = Layout;
 
-const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
+const navItems: MenuProps['items'] = ['guides', 'apiDocs', 'donate'].map(key => ({
     key,
-    label: `nav ${key}`,
+    label: `${key}`,
 }));
 
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
+const siderItems: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     (icon, index) => {
         const key = String(index + 1);
 
@@ -22,7 +23,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
             label: `subnav ${key}`,
 
             children: new Array(4).fill(null).map((_, j) => {
-                const subKey = index * 4 + j + 1;
+                const subKey: any = index * 4 + j + 1;
                 return {
                     key: subKey,
                     label: `option${subKey}`,
@@ -36,7 +37,7 @@ const App: React.FC = () => (
     <Layout>
         <Header className="header">
             <div className="logo" />
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={navItems} />
         </Header>
         <Layout>
             <Sider width={200} className="site-layout-background">
@@ -45,7 +46,7 @@ const App: React.FC = () => (
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
-                    items={items2}
+                    items={siderItems}
                 />
             </Sider>
             <Layout style={{ padding: '0 24px 24px' }}>
