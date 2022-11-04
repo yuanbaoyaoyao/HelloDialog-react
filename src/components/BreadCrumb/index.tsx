@@ -15,7 +15,7 @@ const BreadcrumbComponent = () => {
     })
 
     return (
-        <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb style={{ margin: '16px 0', paddingLeft: '16px' }}>
             {
                 BreadcrumbItems.map((item: any, index: any) => {
                     return (

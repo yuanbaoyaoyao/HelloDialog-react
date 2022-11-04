@@ -1,16 +1,27 @@
 import { Layout, MenuProps, Menu } from 'antd';
+import { GithubOutlined } from '@ant-design/icons'
 const { Header } = Layout;
 
-const navItems: MenuProps['items'] = ['guides', 'apiDocs', 'donate'].map(key => ({
+let navItems: MenuProps['items'] = ['guides', 'apiDocs', 'donate'].map(key => ({
     key,
     label: `${key}`,
 }));
+navItems.push({
+    key: 'github',
+    label: '',
+    icon: <GithubOutlined />
+})
 
 const HeaderComponent = () => {
     return (
-        <Header className="header">
-            <div className="logo" />
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={navItems} />
+        <Header className="header"
+            style={{
+                position: 'fixed',
+                width: '100%',
+                height: '10%',
+                zIndex: '2'
+            }}>
+            <Menu theme="dark" mode="horizontal" items={navItems} />
         </Header>
     )
 }
