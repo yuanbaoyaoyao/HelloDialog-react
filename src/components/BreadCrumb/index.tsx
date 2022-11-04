@@ -10,9 +10,6 @@ const BreadcrumbComponent = () => {
         if (index == sidebarStore.sidebarPath.split('/').length - 1 && index > 0 && item == '') {
             BreadcrumbItems.push('first')
         } else if (item != '') {
-            if (index != sidebarStore.sidebarPath.split('/').length - 1) {
-                item += '/'
-            }
             BreadcrumbItems.push(item)
         }
     })
@@ -20,8 +17,10 @@ const BreadcrumbComponent = () => {
     return (
         <Breadcrumb style={{ margin: '16px 0' }}>
             {
-                BreadcrumbItems.filter(item => {
-                    return <Breadcrumb.Item>{item}</Breadcrumb.Item>
+                BreadcrumbItems.map((item: any, index: any) => {
+                    return (
+                        <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
+                    )
                 })
             }
         </Breadcrumb>
