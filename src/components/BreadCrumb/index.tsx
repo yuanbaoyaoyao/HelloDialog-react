@@ -1,4 +1,31 @@
-import routesWithInfo from '../../constants/routesWithInfo'
+import { Breadcrumb } from 'antd';
+import { useStore, observer } from '../../hooks/storeHook'
 
 //先弄sidebar，然后根据sidebar生成面包屑
 
+const BreadcrumbComponent = () => {
+    const { sidebarStore } = useStore()
+    let BreadcrumbItems: any = []
+    sidebarStore.sidebarPath.split('/').forEach((item, index) => {
+        if (index == sidebarStore.sidebarPath.split('/').length - 1 && index > 0 && item == '') {
+            BreadcrumbItems.push('first')
+        } else if (item != '') {
+            if (index != sidebarStore.sidebarPath.split('/').length - 1) {
+                item += '/'
+            }
+            BreadcrumbItems.push(item)
+        }
+    })
+
+    return (
+        <Breadcrumb style={{ margin: '16px 0' }}>
+            {
+                BreadcrumbItems.filter(item => {
+                    return <Breadcrumb.Item>{item}</Breadcrumb.Item>
+                })
+            }
+        </Breadcrumb>
+    )
+}
+
+export default observer(BreadcrumbComponent) 
